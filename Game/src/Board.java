@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+	
 
 
 
@@ -207,7 +208,6 @@ public class Board{
 			}
 		}
 	}
-	/////////////////////////////////////////////////////
 	public void movePiece(Square s1,Square s2) {
 		s2.piece=s1.piece;
 		if(s2.piece!=null) {
@@ -240,7 +240,6 @@ public class Board{
 		movePiece(temp2,s2);
 		return willUnderCheck;
 	}
-	/////////////////////////////////////////////////
 	public boolean CheckForCurrentCheck(Board.Square target,Player player) {
 		ArrayList<PieceSet.Piece> pAlive = player.opponent.piceseAlive;                     //list of opponent Player alive
 		ArrayList<PieceSet.Piece> ThreatningPieces = new ArrayList<PieceSet.Piece>();        //list of Pieces which are threatning to us on this move
@@ -271,4 +270,25 @@ public class Board{
 		}
 			return check;
 }
+
+	public  PieceSet.Piece getPawnConverted(PieceSet.Piece pawn,int i) {
+		PieceSet.Piece cPiece=null;
+		PieceSet pPieceSet = pawn.getPlayer().pieceSet;
+		switch(i){
+		case 1:
+				cPiece = pPieceSet.new Rook(pawn.x,pawn.y);
+			break;
+		case 2:
+				cPiece = pPieceSet.new Bishop(pawn.x,pawn.y);
+			break;
+		case 3:
+				cPiece = pPieceSet.new Knight(pawn.x,pawn.y);
+			break;
+		default:
+				cPiece = pPieceSet.new Queen(pawn.x,pawn.y);
+			break;
+		}
+		board[pawn.x][pawn.y].piece= cPiece;
+		return cPiece;
+	}
 }

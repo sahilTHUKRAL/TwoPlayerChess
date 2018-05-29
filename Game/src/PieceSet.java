@@ -51,6 +51,8 @@ public class PieceSet{
 			this.name= "Rook";
 			if(this.getColour()==1) {this.icon='\u265c'; }
 			else {this.icon= '\u2656';}
+			this.x=x;
+			this.y=y;
 		}
 		@Override
 		public ArrayList<Board.Square> getMovesWithOutCheck(Board.Square[][] board) {
@@ -620,7 +622,8 @@ public class PieceSet{
 			this.name= "King";
 			if(this.getColour()==1) {this.icon='\u265a'; }
 			else {this.icon= '\u2654';}
-			
+			this.x=x;
+			this.y=y;
 		}	
 		@Override
 		public ArrayList<Board.Square> getMovesWithOutCheck(Board.Square[][] board) {
@@ -751,7 +754,8 @@ public class PieceSet{
 			this.name= "Pawn";
 			if(this.getColour()==1) {this.icon='\u265f'; }
 			else {this.icon= '\u2659';}
-			
+			this.x=x;
+			this.y=y;
 		}
 		@Override
 		public ArrayList<Board.Square> getMovesWithOutCheck(Board.Square[][] board) {
@@ -895,7 +899,16 @@ public class PieceSet{
 	Piece pawn8;
 	Piece king;
 	Board board;
-	
+	// For Pawn Conversion dummy Pieces
+	Piece Cpiece1;
+	Piece Cpiece2;
+	Piece Cpiece3;
+	Piece Cpiece4;
+	Piece Cpiece5;
+	Piece Cpiece6;
+	Piece Cpiece7;
+	Piece Cpiece8;
+	ArrayList<Piece> AdditionalPiece ;
 	PieceSet(int colour,Board board, Player player){
 	this.colour = colour;
 	this.board=board;
@@ -953,6 +966,14 @@ public class PieceSet{
 	this.player.addToPiceseAlive(this.pawn6);
 	this.player.addToPiceseAlive(this.pawn7);
 	this.player.addToPiceseAlive(this.pawn8);
+	this.Cpiece1=null;
+	this.Cpiece2=null;
+	this.Cpiece3=null;
+	this.Cpiece4=null;
+	this.Cpiece5=null;
+	this.Cpiece6=null;
+	this.Cpiece7=null;
+	this.Cpiece8=null;
 	}
 	public boolean checkForCheck(Board.Square s1,Board.Square s2) {
 		boolean IsUnderCheck = board.tempmove(s1,s2,this.king);

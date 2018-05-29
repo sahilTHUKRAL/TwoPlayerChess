@@ -9,9 +9,6 @@ public static void main(String A[])throws Exception{
 	Player a = new Player();
 	Player b = new Player();
 	 Board chessBoard = new Board(a,b);
-	a.move(11, 2);
-	 b.move(12, 2);
-	 a.move(10,1);
 	 chessBoard.print();
 
 	
@@ -20,7 +17,7 @@ public static void main(String A[])throws Exception{
 		 System.out.println(a.pieceSet.colour+"'s move");
 		 a.move();
 	 //chessBoard.turnTheBoard();
-	 chessBoard.print();
+		 chessBoard.print();
 		 System.out.println(b.pieceSet.colour+"'s move");
 		 b.move();
 	 chessBoard.print();
@@ -34,6 +31,7 @@ public static void main(String A[])throws Exception{
 			 System.out.println("Match Draw By staleMate");
 		 }
 	 }
+	 
 	 if(!b.moveLeft)
 	 {
 		 if(b.underCheck) {

@@ -115,7 +115,18 @@ public class Player{
 		Board.Square squareToMove = moves.get(i-1);
 		opponent.piceseAlive.remove(squareToMove.piece);
 		chessBoard.movePiece(chessBoard.board[currPiece.x][currPiece.y], squareToMove);
+		boolean pawnConverted= false;
+		if(currPiece.name.equals("Pawn") && (currPiece.x==0 || currPiece.x==7)){
+			System.out.println("Choose The Piece to be replaced by Pawn:\n 1: Rook \n 2: Bishop \n 3: Knight \n 4: Queen");
+			int pieceCode= scanner.nextInt();
+			PieceSet.Piece cPiece = chessBoard.getPawnConverted(currPiece,pieceCode);
+			pawnConverted=true;
+			piceseAlive.remove(currPiece);
+			piceseAlive.add(cPiece);
+			
+		}
 		underCheck=false;
+		pawnConverted=false;
 		checkGivenCheck();
 	}
 	
