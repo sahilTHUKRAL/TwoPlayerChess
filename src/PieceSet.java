@@ -13,10 +13,14 @@ public class PieceSet{
 		protected  String name;
 		protected char icon;
 		protected int x,y;
+		protected String pathToImage;
 		public int getColour() {
 			return colour;
 		}
 		public void setFirstMove(Boolean b) {
+		}
+		public boolean getFirstMove() {
+			return false;
 		}
 		public Player getPlayer() {
 			return player;
@@ -49,8 +53,14 @@ public class PieceSet{
 	class Rook extends Piece{
 		Rook(int x, int y){
 			this.name= "Rook";
-			if(this.getColour()==1) {this.icon='\u265c'; }
-			else {this.icon= '\u2656';}
+			if(this.getColour()==1) {
+				this.icon='\u265c';
+				this.pathToImage="resources//images//blackRook.png";
+			}
+			else {
+				this.icon= '\u2656';
+				this.pathToImage="resources//images//whiteRook.png";
+			}
 			this.x=x;
 			this.y=y;
 		}
@@ -165,8 +175,14 @@ public class PieceSet{
 	class Knight extends Piece{
 		Knight(int x, int y){
 			this.name= "Knight";
-			if(this.getColour()==1) {this.icon='\u265e'; }
-			else {this.icon= '\u2658';}
+			if(this.getColour()==1) {
+				this.icon='\u265e';
+				this.pathToImage="resources//images//blackKnight.png";
+			}
+			else {
+				this.icon= '\u2658';
+				this.pathToImage="resources//images//whiteKnight.png";
+			}
 			this.x=x;
 			this.y=y;
 		}
@@ -257,8 +273,14 @@ public class PieceSet{
 	class Bishop extends Piece{
 		Bishop(int x, int y){
 			this.name= "Bishop";
-			if(this.getColour()==1) {this.icon='\u265d'; }
-			else {this.icon= '\u2657';}
+			if(this.getColour()==1) {
+				this.icon='\u265d';
+				this.pathToImage="resources//images//blackBishop.png";
+			}
+			else {
+				this.icon= '\u2657';
+				this.pathToImage="resources//images//WhiteBishop.png";
+			}
 			this.x=x;
 			this.y=y;
 		}
@@ -391,8 +413,14 @@ public class PieceSet{
 	class Queen extends Piece{
 		Queen(int x, int y){
 			this.name= "Queen";
-			if(this.getColour()==1) {this.icon='\u265b'; }
-			else {this.icon= '\u2655';}
+			if(this.getColour()==1) {
+				this.icon='\u265b';
+				this.pathToImage="resources//images//blackQueen.png";
+				}
+			else {
+				this.icon= '\u2655';
+				this.pathToImage="resources//images//WhiteQueen.png";
+				}
 			this.x=x;
 			this.y=y;
 		}
@@ -620,8 +648,14 @@ public class PieceSet{
 		public boolean casling=true;
 		King(int x, int y){
 			this.name= "King";
-			if(this.getColour()==1) {this.icon='\u265a'; }
-			else {this.icon= '\u2654';}
+			if(this.getColour()==1) {
+				this.icon='\u265a';
+				this.pathToImage="resources//images//blackKing.png";
+				}
+			else {
+				this.icon= '\u2654';
+				this.pathToImage="resources//images//whiteKing.png";
+				}
 			this.x=x;
 			this.y=y;
 		}	
@@ -747,13 +781,24 @@ public class PieceSet{
 
 	class Pawn extends Piece{
 		public boolean fistMove=true;
+		@Override
 		public void setFirstMove(Boolean b) {
 			this.fistMove=b;
 		}
+		@Override
+		public boolean getFirstMove() {
+			return fistMove;
+		}
 		Pawn(int x, int y){
 			this.name= "Pawn";
-			if(this.getColour()==1) {this.icon='\u265f'; }
-			else {this.icon= '\u2659';}
+			if(this.getColour()==1) {
+				this.icon='\u265f'; 
+				this.pathToImage="resources//images//blackPawn.png";
+				}
+			else {
+				this.icon= '\u2659';
+				this.pathToImage="resources//images//whitePawn.png";
+				}
 			this.x=x;
 			this.y=y;
 		}
@@ -763,7 +808,7 @@ public class PieceSet{
 			if(this.getColour()==1) {
 				int i=x;
 				int j=y;
-			if(fistMove && underlimits(i+2, j) && board[i+2][j].piece==null) {
+			if(fistMove && underlimits(i+2, j) && board[i+1][j].piece==null && board[i+2][j].piece==null) {
 			moves.add(board[i+2][j]);
 			}
 			i=x;
@@ -787,7 +832,7 @@ public class PieceSet{
 				int Y=y;
 				int i=x-2;
 				int j=y;
-				if(fistMove && underlimits(i, j) && board[i][j].piece==null) {
+				if(fistMove && underlimits(i, j) && board[i][j].piece==null && board[i+1][j].piece==null) {
 					moves.add(board[i][j]);
 					}
 				i=X-1;
@@ -816,7 +861,7 @@ public class PieceSet{
 			if(this.getColour()==1) {
 				int i=x;
 				int j=y;
-			if(fistMove && underlimits(i+2, j) && board[i+2][j].piece==null) {
+			if(fistMove && underlimits(i+2, j) && board[i+2][j].piece==null && board[i+1][j].piece==null) {
 			if(!checkForCheck(board[x][y],board[i+2][j])) {
 			moves.add(board[i+2][j]);
 			}
@@ -848,7 +893,7 @@ public class PieceSet{
 				int Y=y;
 				int i=x-2;
 				int j=y;
-				if(fistMove && underlimits(i, j) && board[i][j].piece==null) {
+				if(fistMove && underlimits(i, j) && board[i][j].piece==null && board[i+1][j].piece==null) {
 					if(!checkForCheck(board[x][y],board[i][j])) {
 					moves.add(board[i][j]);
 					}

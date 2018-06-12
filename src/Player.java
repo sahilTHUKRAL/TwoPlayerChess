@@ -1,12 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
+
 public class Player{
 		PieceSet pieceSet;
+		Game game;
 		boolean underCheck=false;
 		Board chessBoard;
 		boolean moveLeft=true;
 		Scanner scanner;
+		boolean inmove=false;
 		Player opponent;
 		 ArrayList<PieceSet.Piece> piceseAlive;
 		public void assignPieceSet(PieceSet pieceSet) {
@@ -61,7 +66,8 @@ public class Player{
 		}
 		public void move(int i,int j) {
 			if(underCheck) {
-				System.out.println("You Are Under Check! Save Your King");
+				JOptionPane.showMessageDialog(null, "You Are Under Check! Save Your King");
+				
 			}			
 			PieceSet.Piece currPiece = piceseAlive.get(i-1);
 			ArrayList<Board.Square> moves = chessBoard.board[currPiece.x][currPiece.y].legalMoves();
@@ -70,9 +76,17 @@ public class Player{
 			chessBoard.movePiece(chessBoard.board[currPiece.x][currPiece.y], squareToMove);
 		
 		}
+		public boolean isUnderCheck() {
+			return this.underCheck;
+		}
+		public void checkPrompter() {
+			if(this.underCheck==true) {
+				JOptionPane.showMessageDialog(null, "You Are Under Check! Save Your King");
+			}
+		}
 		public void move() {
 			if(underCheck) {
-				System.out.println("You Are Under Check! Save Your King");
+				JOptionPane.showMessageDialog(null, "You Are Under Check! Save Your King");
 			}
 			int i=1;
 			System.out.println("Players Alive please Choose the Number to move the player:");
@@ -118,7 +132,7 @@ public class Player{
 		boolean pawnConverted= false;
 		if(currPiece.name.equals("Pawn") && (currPiece.x==0 || currPiece.x==7)){
 			System.out.println("Choose The Piece to be replaced by Pawn:\n 1: Rook \n 2: Bishop \n 3: Knight \n 4: Queen");
-			int pieceCode= scanner.nextInt();
+			String pieceCode= scanner.nextLine();
 			PieceSet.Piece cPiece = chessBoard.getPawnConverted(currPiece,pieceCode);
 			pawnConverted=true;
 			piceseAlive.remove(currPiece);
@@ -128,6 +142,62 @@ public class Player{
 		underCheck=false;
 		pawnConverted=false;
 		checkGivenCheck();
+	}
+	public void isOpponentUnderCheck() {
+		String ColorOfOpponent;
+		if(this.pieceSet.colour==0) {
+			ColorOfOpponent="Black";
+		}
+		else {
+			ColorOfOpponent="White";
+		}
+		if(opponent.underCheck) {
+			JOptionPane.showMessageDialog(null,""+ ColorOfOpponent+ " is Under Check! Save Your King");
+		}
+	}
+	public void guiMove(PieceSet.Piece currPiece, Board.Square squareToMove) {
+		
+		if(currPiece.name.equals("Pawn") && currPiece.getFirstMove()) {
+			currPiece.setFirstMove(false);
+		}
+		if(squareToMove.piece!=null)
+			opponent.piceseAlive.remove(squareToMove.piece);
+		chessBoard.movePiece(chessBoard.board[currPiece.x][currPiece.y], squareToMove);
+		
+		boolean pawnConverted= false;
+		if(currPiece.name.equals("Pawn") && (currPiece.x==0 || currPiece.x==7)){
+			//System.out.println("Choose The Piece to be replaced by Pawn:\n 1: Rook \n 2: Bishop \n 3: Knight \n 4: Queen");
+			
+			String[] values = {"1", "2", "3", "4"};
+			String pieceCode ="4";
+			Object selected = JOptionPane.showInputDialog(null, "Choose The Piece to be replaced by Pawn:\n 1: Rook \n 2: Bishop \n 3: Knight \n 4: Queen", "Selection", JOptionPane.DEFAULT_OPTION, null, values, "4");
+			if ( selected != null ){//null if the user cancels. 
+			    pieceCode = selected.toString();
+			    //do something
+			}else{
+			    System.out.println("User cancelled");
+			}
+		//	int pieceCode= scanner.nextInt();
+			PieceSet.Piece cPiece = chessBoard.getPawnConverted(currPiece,pieceCode);
+			pawnConverted=true;
+			piceseAlive.remove(currPiece);
+			piceseAlive.add(cPiece);
+			System.out.println("Reached Here");
+		}
+		underCheck=false;
+		pawnConverted=false;
+		checkGivenCheck();
+		if(!opponent.checkForMoveLeft() && !opponent.underCheck )
+		   {
+				JOptionPane.showMessageDialog(null, "Match Draw by Stale Mate");
+				System.exit(1);
+		   }
+		if(!opponent.checkForMoveLeft() && opponent.underCheck )
+		   {
+				JOptionPane.showMessageDialog(null, "Check Mate");
+				System.exit(2);
+		   }
+		
 	}
 	
 }

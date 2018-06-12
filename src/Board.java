@@ -1,12 +1,12 @@
+import java.awt.Color;
 import java.util.ArrayList;
-	
 
-
-
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 public class Board{
 	int colourOfSquare;
 // Internal Square class for Each Individual Squares 
-	class Square{
+	class Square  extends JButton{
 		PieceSet.Piece piece;
 		int x;
 		int y;
@@ -70,8 +70,6 @@ public class Board{
 	PieceSet pieceSetWhite; 
 	PieceSet pieceSetBlack;
 	int turn;
-	
-		
 	Board(Player a,Player b){
 		board = new Square[8][8];
 		this.pieceSetWhite = new PieceSet(0, this, a);
@@ -271,17 +269,17 @@ public class Board{
 			return check;
 }
 
-	public  PieceSet.Piece getPawnConverted(PieceSet.Piece pawn,int i) {
+	public  PieceSet.Piece getPawnConverted(PieceSet.Piece pawn,String pieceCode) {
 		PieceSet.Piece cPiece=null;
 		PieceSet pPieceSet = pawn.getPlayer().pieceSet;
-		switch(i){
-		case 1:
+		switch(pieceCode){
+		case "1":
 				cPiece = pPieceSet.new Rook(pawn.x,pawn.y);
 			break;
-		case 2:
+		case "2":
 				cPiece = pPieceSet.new Bishop(pawn.x,pawn.y);
 			break;
-		case 3:
+		case "3":
 				cPiece = pPieceSet.new Knight(pawn.x,pawn.y);
 			break;
 		default:
@@ -290,5 +288,43 @@ public class Board{
 		}
 		board[pawn.x][pawn.y].piece= cPiece;
 		return cPiece;
+	}
+
+	public void Resetboard(Game game) {
+		 {
+		        for(int i = 0; i <8; i++){
+		        for(int j = 0; j <8; j++)
+		   	        {
+		        	Square s = board[i][j];  
+		        	if(s.colour==0)
+		            	board[i][j].setBackground(Color.WHITE);
+		            if(s.colour==1)
+		            	board[i][j].setBackground(Color.GRAY);
+		            if(s.piece==null) {
+		            	board[i][j].setIcon(null);	  	
+		            }
+		            if(s.piece!=null) {
+		            	board[i][j].setIcon(new ImageIcon(s.piece.pathToImage));	
+		            }
+		            board[i][j].addActionListener(new buttonListner());
+		            game.add(board[i][j]); //adds this button to JPanel (note: no need for JPanel.add(...)
+		                                //because this whole class is a JPanel already           
+		        }
+		        }
+		    }
+		
+	}
+
+	public void clearAllGreenSquare() {
+		for(Square[] s : board) {
+			for(Square s1 :s) {
+				if(s1.getBackground()==Color.GREEN) {
+					if(s1.colour==1)
+						s1.setBackground(Color.GRAY);
+					else
+						s1.setBackground(Color.white);
+				}
+			}
+		}
 	}
 }
