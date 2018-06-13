@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 public class Board{
@@ -292,9 +293,13 @@ public class Board{
 
 	public void Resetboard(Game game) {
 		 {
-		        for(int i = 0; i <8; i++){
-		        for(int j = 0; j <8; j++)
+			 char a='A';
+		        for(int l = 0; l <9; l++){
+		        for(int m = 0; m <9; m++)
 		   	        {
+		        	if(l>0 && m>0) {
+		        	int i=l-1;
+		        	int j=m-1;
 		        	Square s = board[i][j];  
 		        	if(s.colour==0)
 		            	board[i][j].setBackground(Color.WHITE);
@@ -304,12 +309,19 @@ public class Board{
 		            	board[i][j].setIcon(null);	  	
 		            }
 		            if(s.piece!=null) {
-		            	board[i][j].setIcon(new ImageIcon(s.piece.pathToImage));	
+		            	//board[i][j].setIcon(new ImageIcon(s.piece.pathToImage));
+		            	board[i][j].setIcon(s.piece.iconImage);	
 		            }
 		            board[i][j].addActionListener(new buttonListner());
 		            game.add(board[i][j]); //adds this button to JPanel (note: no need for JPanel.add(...)
 		                                //because this whole class is a JPanel already           
-		        }
+		        			}
+		        	/*else {
+		        		JButton NumberTile=new JButton();
+		        		NumberTile.setText(""+a++);	
+		        		game.add(NumberTile);
+		        	}*/
+		   	        }
 		        }
 		    }
 		

@@ -1,4 +1,8 @@
+import java.awt.Toolkit;
 import java.util.ArrayList;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class PieceSet{
 	public class Move{
@@ -12,6 +16,8 @@ public class PieceSet{
 	class Piece {
 		protected  String name;
 		protected char icon;
+		protected Icon iconImage;
+		java.net.URL imageUrl;
 		protected int x,y;
 		protected String pathToImage;
 		public int getColour() {
@@ -55,11 +61,13 @@ public class PieceSet{
 			this.name= "Rook";
 			if(this.getColour()==1) {
 				this.icon='\u265c';
-				this.pathToImage="resources//images//blackRook.png";
+				this.pathToImage="images/blackRook.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 			}
 			else {
 				this.icon= '\u2656';
-				this.pathToImage="resources//images//whiteRook.png";
+				this.pathToImage="images/whiteRook.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 			}
 			this.x=x;
 			this.y=y;
@@ -177,11 +185,13 @@ public class PieceSet{
 			this.name= "Knight";
 			if(this.getColour()==1) {
 				this.icon='\u265e';
-				this.pathToImage="resources//images//blackKnight.png";
+				this.pathToImage="images/blackKnight.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 			}
 			else {
 				this.icon= '\u2658';
-				this.pathToImage="resources//images//whiteKnight.png";
+				this.pathToImage="images/whiteKnight.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 			}
 			this.x=x;
 			this.y=y;
@@ -275,11 +285,13 @@ public class PieceSet{
 			this.name= "Bishop";
 			if(this.getColour()==1) {
 				this.icon='\u265d';
-				this.pathToImage="resources//images//blackBishop.png";
+				this.pathToImage="images/blackBishop.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 			}
 			else {
 				this.icon= '\u2657';
-				this.pathToImage="resources//images//WhiteBishop.png";
+				this.pathToImage="images/whiteBishop.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 			}
 			this.x=x;
 			this.y=y;
@@ -415,11 +427,13 @@ public class PieceSet{
 			this.name= "Queen";
 			if(this.getColour()==1) {
 				this.icon='\u265b';
-				this.pathToImage="resources//images//blackQueen.png";
+				this.pathToImage="images/blackQueen.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 				}
 			else {
 				this.icon= '\u2655';
-				this.pathToImage="resources//images//WhiteQueen.png";
+				this.pathToImage="images/whiteQueen.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 				}
 			this.x=x;
 			this.y=y;
@@ -650,11 +664,14 @@ public class PieceSet{
 			this.name= "King";
 			if(this.getColour()==1) {
 				this.icon='\u265a';
-				this.pathToImage="resources//images//blackKing.png";
+				this.pathToImage="images/blackKing.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 				}
 			else {
 				this.icon= '\u2654';
-				this.pathToImage="resources//images//whiteKing.png";
+				this.pathToImage="images/whiteKing.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
+
 				}
 			this.x=x;
 			this.y=y;
@@ -793,11 +810,13 @@ public class PieceSet{
 			this.name= "Pawn";
 			if(this.getColour()==1) {
 				this.icon='\u265f'; 
-				this.pathToImage="resources//images//blackPawn.png";
-				}
+				this.pathToImage="images/blackPawn.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
+			}
 			else {
 				this.icon= '\u2659';
-				this.pathToImage="resources//images//whitePawn.png";
+				this.pathToImage="images/whitePawn.png";
+				iconImage = new ImageIcon(getClass().getResource(pathToImage));
 				}
 			this.x=x;
 			this.y=y;

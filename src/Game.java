@@ -1,5 +1,6 @@
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.stream.Collector.Characteristics;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -17,11 +18,10 @@ public Game()
 	    {
 	b.game= this;
 	a.game = this;
-	      setLayout(new GridLayout(8,8));
+    setLayout(new GridLayout(8,8));
 	      chessBoard.Resetboard(this);
 	      a.inmove=true;
 	    }
-
 	
 	
 	public static void main(String a[])throws Exception{
@@ -32,7 +32,19 @@ public Game()
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().add(new Game());
        window.setBounds(600,600,600,600);
-        window.setVisible(true);        
+        window.setVisible(true);
+        
+        // SELECTION FOR OPPONENT PLAYER
+        String[] values = {"Human", "AI"};
+		String pieceCode ="AI";
+		Object selected = JOptionPane.showInputDialog(null, "Choose The opposition Player:\n 1: Human \n 2: AI ", "Selection", JOptionPane.DEFAULT_OPTION, null, values, "AI");
+		if ( selected != null ){//null if the user cancels.
+			if(selected.toString()=="AI")
+					b.IsAI=true;
+		}else{
+		    System.exit(3);
+		}
+
         /* chessBoard.print();
 	 //game loop
 	 while(a.checkForMoveLeft() && b.checkForMoveLeft()) {
@@ -68,11 +80,11 @@ public Game()
         //move(a);
 }
 
-public static boolean GameAlive(Player a, Player b) {
+/*public static boolean GameAlive(Player a, Player b) {
 	if(a.checkForMoveLeft() && b.checkForMoveLeft()) {return true;}
 	return false;
 }
-
+*/
 public static void GreenPossibleMoves(ArrayList<Board.Square> colorSquares) {
 	for(Board.Square colorSquare : colorSquares) {
 		colorSquare.setBackground(Color.GREEN);

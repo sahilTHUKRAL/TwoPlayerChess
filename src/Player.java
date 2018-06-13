@@ -1,12 +1,17 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
 
+
 public class Player{
 		PieceSet pieceSet;
 		Game game;
+		boolean IsAI=false;
 		boolean underCheck=false;
 		Board chessBoard;
 		boolean moveLeft=true;
@@ -199,5 +204,20 @@ public class Player{
 		   }
 		
 	}
-	
+	public void takeAMove() {
+		int isMovesThere = 0;
+		ArrayList<Board.Square> allPossibleMovesForThisPiece= null;
+		PieceSet.Piece randPieceSelectet=null ;
+		while(isMovesThere<1) {
+		randPieceSelectet = piceseAlive.get(new Random().nextInt(piceseAlive.size())); 
+		allPossibleMovesForThisPiece= chessBoard.board[randPieceSelectet.x][randPieceSelectet.y].legalMoves();
+		isMovesThere=allPossibleMovesForThisPiece.size();
+		}
+		Board.Square squareToMove= allPossibleMovesForThisPiece.get(new Random().nextInt(allPossibleMovesForThisPiece.size()));
+
+		guiMove(randPieceSelectet, squareToMove);
+		this.inmove=false;
+		this.opponent.inmove=true;
+		isOpponentUnderCheck();
+	}
 }
